@@ -126,6 +126,7 @@ RequestID int not null,
 Foreign key (RequestID) references Request(ID), 
 ProductID int not null,
  Foreign key (ProductID) references Product(ID),
+ constraint request_ID unique (RequestID, ProductID),
 Quantity int not null default 1);
 
 Insert LineItem
@@ -135,6 +136,9 @@ Values
 ('2', '2'),
 ('3', '3');
 
+drop user if exists prs_user@localhost;
+create user prs_user@localhost identified by 'sesame';
+grant select, insert, delete, update on prs.* to prs_user@localhost;
 
 
 
